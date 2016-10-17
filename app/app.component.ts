@@ -1,25 +1,41 @@
 import { Component } from '@angular/core';
+import { Task } from './task.model';
 
 @Component({
   selector: 'my-app',
   template: `
   <div class="container">
     <h1>My First Angular 2 App</h1>
-    <h3 *ngFor="let currentTask of tasks">{{ currentTask.description }}</h3>
+    <pies></pies>
+    <task-list
+      [childTaskList]="masterTaskList"
+      (clickSender)="showDetails($event)"
+    ></task-list>
+    <edit-task
+      [childSelectedTask]="selectedTask"
+      (doneClickedSender)="finishedEditing()"
+    ></edit-task>
+    <new-task
+      (newTaskSender)="addTask($event)"
+    ></new-task>
   </div>
   `
 })
-
 export class AppComponent {
-  public tasks: Task[] = [
-      new Task("Create To-Do List app.", 0),
-      new Task("Learn Kung Fu.", 1),
-      new Task("Rewatch all the Lord of the Rings movies.", 2),
-      new Task("Do the laundry.", 3)
+  public masterTaskList: Task[] = [
+    new Task("create To-Do List app.", 0),
+    new Task("Learn Kung Fu.", 1),
+    new Task("Rwatch all the Lord of da Rangs.", 2),
+    new Task("Do the laundry.", 3)
   ];
-}
-
-export class Task {
-  public done: boolean = false;
-  constructor(public description: string, public id: number) {   }
+  selectedTask: Task = null;
+  showDetails(clickedTask: Task) {
+    this.selectedTask = clickedTask;
+  }
+  finishedEditing() {
+    this.selectedTask = null;
+  }
+  addTask(newTaskFromChild: Task) {
+    this.masterTaskList.push(newTaskFromChild);
+  }
 }
