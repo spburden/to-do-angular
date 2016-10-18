@@ -21,6 +21,7 @@ import { Task } from './task.model';
   </div>
   `
 })
+
 export class AppComponent {
   public masterTaskList: Task[] = [
     new Task("create To-Do List app.", 0),

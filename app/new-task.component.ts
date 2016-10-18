@@ -10,7 +10,7 @@ import { Task } from './task.model';
       <input #newDescription>
     </div>
     <div>
-      <label>Enter Task ID:</label>
+    <label>Enter Task ID:</label>
       <input #newId>
       <button (click)="
         addClicked(newDescription.value, newId.value);
